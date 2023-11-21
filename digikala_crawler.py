@@ -1,6 +1,8 @@
 
 import os
 import requests
+import json
+
 
 def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time):
     import time
@@ -8,6 +10,8 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time):
         found = False
         response = requests.get(f'https://api.digikala.com/v2/product/{id}/', cookies=cookies, headers=headers)
         time.sleep(sleep_time)
+        with open(f'./products-info/{id}.json', 'w+') as f:
+            json.dump(response.json(), f)
         images_url = response.json()['data']['product']['images']
         for index, url in enumerate(images_url['list']):
             name = f'{id}_{index}.jpg'
@@ -104,6 +108,7 @@ if __name__ == '__main__':
     # match_func = lambda url: '_1700' in url
     match_func = lambda url: True
     os.makedirs('./digi_image_crawled', exist_ok=True)
+    os.makedirs('./products-info', exist_ok=True)
     start, end = config['start'], config['end']
     sleep_time = config['sleep_time']
     prefix = 'https://api.digikala.com/v1/categories/'
