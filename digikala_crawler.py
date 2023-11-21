@@ -106,7 +106,9 @@ if __name__ == '__main__':
     os.makedirs('./digi_image_crawled', exist_ok=True)
     start, end = config['pages']['start'], config['pages']['end']
     sleep_time = config['sleep_time']
-    START_URL = config['start_url']
+    prefix = 'https://api.digikala.com/v1/categories/'
+    postfix = '/search/?seo_url=&page=1' 
+    START_URL = prefix + config['start_url'] + postfix
     for page_num in range(start, end):
         print(page_num)
         product_ids = get_product_ids(START_URL, page_num, headers, cookies)
