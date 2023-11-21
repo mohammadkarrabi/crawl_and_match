@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # match_func = lambda url: '_1700' in url
     match_func = lambda url: True
     os.makedirs('./digi_image_crawled', exist_ok=True)
-    start, end = config['pages']['start'], config['pages']['end']
+    start, end = config['start'], config['end']
     sleep_time = config['sleep_time']
     prefix = 'https://api.digikala.com/v1/categories/'
     postfix = '/search/?seo_url=&page=1' 
