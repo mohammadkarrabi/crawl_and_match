@@ -1,4 +1,4 @@
-address: "http://127.0.0.1:8484/batch-ocr"
+ocr_url: "http://127.0.0.1:8484/batch-ocr"
 start: 1
 end: 100
 start_url: "men-socks-tights"

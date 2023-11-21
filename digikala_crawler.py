@@ -3,8 +3,13 @@ import os
 import requests
 import json
 
+def send2ocr(image_path, ocr_url):
+    # Create a list of multipart form-data files
+    files = [("files", open(path, "rb")) for path in [image_path]]
+    response = requests.post(ocr_url, files=files)
+    return
 
-def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time):
+def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url):
     import time
     for id in product_ids:
         found = False
@@ -21,6 +26,7 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time):
                 resp = requests.get(image_url, cookies=cookies, headers=headers)
                 with open(os.path.join('digi_image_crawled', name), 'wb') as file:
                     file.write(resp.content)
+                send2ocr(os.path.join('digi_image_crawled', name), ocr_url)
     if not found:
         images_url = response.json()['data']['product']['images']
         for index, url in enumerate(images_url['list']):
@@ -114,8 +120,9 @@ if __name__ == '__main__':
     prefix = 'https://api.digikala.com/v1/categories/'
     postfix = '/search/?seo_url=&page=1' 
     START_URL = prefix + config['start_url'] + postfix
+    ocr_url = config['ocr_url']
     for page_num in range(start, end):
         print(page_num)
         product_ids = get_product_ids(START_URL, page_num, headers, cookies)
-        _prodouct2images(product_ids, headers, cookies, match_func, sleep_time)
+        _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url)
         
