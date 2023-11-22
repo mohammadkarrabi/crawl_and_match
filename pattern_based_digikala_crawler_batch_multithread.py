@@ -7,19 +7,21 @@ import json
 from tqdm import tqdm
 
 def get_valids(lst):
-#   print(' input to get valids url func : ', lst)
-  times = [float(l.replace("_","/").split("/")[-1].split(".")[0]) for l in lst]
-  dicttimes = {float(l.replace("_","/").split("/")[-1].split(".")[0]):l for l in lst}
-  times.sort()
-  diffs = [j-i for i, j in zip(times[:-1], times[1:])]
-  if len(diffs)==1:
-    if diffs[0] > 100000:
-      return dicttimes[times[-1]] 
-  if diffs[-1] - diffs[-2] > 100000:
-    return [dicttimes[times[-1]]]
-  else:
-    return []
-  
+  try:
+    #   print(' input to get valids url func : ', lst)
+    times = [float(l.replace("_","/").split("/")[-1].split(".")[0]) for l in lst]
+    dicttimes = {float(l.replace("_","/").split("/")[-1].split(".")[0]):l for l in lst}
+    times.sort()
+    diffs = [j-i for i, j in zip(times[:-1], times[1:])]
+    if len(diffs)==1:
+        if diffs[0] > 100000:
+            return dicttimes[times[-1]] 
+    if diffs[-1] - diffs[-2] > 100000:
+        return [dicttimes[times[-1]]]
+    else:
+        return []
+  except:
+      return
 current_image_batch = []
 def send2ocr(ocr_url):
     # Create a list of multipart form-data files
