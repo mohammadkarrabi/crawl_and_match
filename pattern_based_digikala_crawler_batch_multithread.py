@@ -7,7 +7,7 @@ import json
 from tqdm import tqdm
 
 def get_valids(lst):
-  print(' input to get valids url func : ', lst)
+#   print(' input to get valids url func : ', lst)
   times = [float(l.replace("_","/").split("/")[-1].split(".")[0]) for l in lst]
   dicttimes = {float(l.replace("_","/").split("/")[-1].split(".")[0]):l for l in lst}
   times.sort()
