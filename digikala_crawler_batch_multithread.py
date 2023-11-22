@@ -7,9 +7,9 @@ import json
 from tqdm import tqdm
 
 current_image_batch = []
-def send2ocr(image_paths, ocr_url):
+def send2ocr(ocr_url):
     # Create a list of multipart form-data files
-    files = [("files", open(path, "rb")) for path in image_paths]
+    files = [("files", open(path, "rb")) for path in current_image_batch]
     response = requests.post(ocr_url, files=files)
     return
 
@@ -36,7 +36,7 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_
         urls = [url['url'][0].split('?')[0] for url in images_url if match_func(url)]
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             executor.map(lambda link: download_single_image(link, id), urls)
-        send2ocr(current_image_batch, ocr_url)
+        send2ocr(ocr_url)
 
 
 def get_product_ids(start_url, page_num, headers, cookies, if_test):
