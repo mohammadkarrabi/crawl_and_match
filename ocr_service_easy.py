@@ -1,3 +1,4 @@
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 import uvicorn
 import os
@@ -82,10 +83,14 @@ async def batch_ocr(files: List[UploadFile] = File(...)):
 
 global ocr_model, seen_ids, image2txt
 ocr_model = easyocr.Reader(['fa','en']) # this needs to run only once to load the model into memory
-seen_ids = set(open('seen-ids.txt', 'r+').read().splitlines())
+seen_ids_file = Path('seen-ids.txt')
+image2txt_file = Path('image2txt.jsonl')
+seen_ids_file.touch(exist_ok=True) 
+image2txt_file.touch(exist_ok=True) 
+seen_ids = set(open('seen-ids.txt').read().splitlines())
     
 image2txt = {}
-for line in open('image2txt.jsonl', 'r+'):
+for line in open('image2txt.jsonl'):
     item = json.loads(line)
     image2txt[item['image']] = item['text']
 
