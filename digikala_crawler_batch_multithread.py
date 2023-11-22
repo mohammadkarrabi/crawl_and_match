@@ -4,6 +4,7 @@ import os
 import uuid
 import requests
 import json
+from tqdm import tqdm
 
 current_image_batch = []
 def send2ocr(image_paths, ocr_url):
@@ -129,8 +130,7 @@ if __name__ == '__main__':
     ocr_url = config['ocr_url']
     num_workers = config['num_workers']
     if_test = config['if_test']
-    for page_num in range(start, end):
-        print(page_num)
+    for page_num in tqdm(range(start, end)):
         product_ids = get_product_ids(START_URL, page_num, headers, cookies, if_test)
         _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url, num_workers)
         
