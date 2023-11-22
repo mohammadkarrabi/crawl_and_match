@@ -73,5 +73,5 @@ if __name__ == "__main__":
                     shutil.copy(path, BASIC_GOALS_PATH)
                 if check_extreme_goal(texts):
                     print(texts)
-                    shutil.copy(batch, EXTREME_GOALS_PATH)
+                    shutil.copy(path, EXTREME_GOALS_PATH)
 
