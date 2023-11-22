@@ -35,5 +35,5 @@ def main(im_list,outlist):
 
 os.makedirs('./images', exist_ok=True)
 os.makedirs('./images/matched', exist_ok=True)
-os.makedirs('./images/candidate', exist_ok=True)
+os.makedirs('./images/candidates', exist_ok=True)
 main("./images/candidates","./images/matched")
