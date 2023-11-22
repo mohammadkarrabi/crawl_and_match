@@ -55,7 +55,7 @@ class DigikalaSpider(scrapy.Spider):
 
         config = load_config()
         self.valid_urls = lambda urls: get_outliers(urls)
-        os.makedirs('./digi_image_crawled', exist_ok=True)
+        os.makedirs('./candidates', exist_ok=True)
         os.makedirs('./products-info', exist_ok=True)
         os.makedirs('./best-images', exist_ok=True)
         start, end = config['start'], config['end']
@@ -93,7 +93,7 @@ class DigikalaSpider(scrapy.Spider):
     def get_image(self, response):
         if response.status == 200:
             filename = response.url.split('/')[-1]
-            image_path = os.path.join('./best-images', filename)
+            image_path = os.path.join('./candidates', filename)
 
             with open(image_path, 'wb') as f:
                 f.write(response.body)

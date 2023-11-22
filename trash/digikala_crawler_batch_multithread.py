@@ -40,7 +40,7 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_
         urls = [url['url'][0].split('?')[0] for url in images_url if match_func(url)]
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             executor.map(lambda link: download_single_image(link, id), urls)
-        send2ocr(ocr_url)
+        # send2ocr(ocr_url)
 
 
 def get_product_ids(start_url, page_num, headers, cookies, if_test):
@@ -135,6 +135,7 @@ if __name__ == '__main__':
     ocr_url = config['ocr_url']
     num_workers = config['num_workers']
     if_test = config['if_test']
+    cookies = {}
     for page_num in tqdm(range(start, end)):
         product_ids = get_product_ids(START_URL, page_num, headers, cookies, if_test)
         _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url, num_workers)
