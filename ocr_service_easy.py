@@ -19,6 +19,7 @@ BASIC_GOALS_PATH = './basic_candidate_images'
 EXTREME_GOALS_PATH = './extreme_candidate_images'
 os.makedirs(BASIC_GOALS_PATH, exist_ok=True)
 os.makedirs(EXTREME_GOALS_PATH, exist_ok=True)
+os.makedirs('./images-uploaded', exist_ok=True)
 
 
 def check_goal(txts):
