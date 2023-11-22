@@ -52,7 +52,7 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_
         with open(f'./products-info/{id}.json', 'w+') as f:
             json.dump(response.json(), f)
         images_url = response.json()['data']['product']['images']['list']
-        urls = [url['url'][0].split('?')[0] for url in images_url if match_func(url)]
+        urls = [url['url'][0].split('?')[0] for url in images_url]
         valid_urls = match_func(urls)
         id_urls_tuple = (id, valid_urls)
         all_urls.extend(id_urls_tuple)
