@@ -88,12 +88,13 @@ class DigikalaSpider(scrapy.Spider):
         urls = [url['url'][0].split('?')[0] for url in images_url]
         valid_urls = self.valid_urls(urls)
         for url in valid_urls:
-            yield scrapy.Request(url, callback=self.get_image, headers=self.headers)
+            yield scrapy.Request(url, callback=self.get_image, headers=self.headers, meta={'id':id})
 
     def get_image(self, response):
+        id = response.meta.get('id')
         if response.status == 200:
             filename = response.url.split('/')[-1]
-            image_path = os.path.join('./images/candidates', filename)
+            image_path = os.path.join('./images/candidates', str(id) + '__' + filename)
 
             with open(image_path, 'wb') as f:
                 f.write(response.body)
