@@ -13,8 +13,8 @@ def get_outliers(lst):
             group_key = string.split('_')[1][:3]
         except:
             continue
-        if group_key == '1700':
-            continue
+        # if group_key == '1700':
+        #     continue
         if group_key not in groups:
             groups[group_key] = [string]
         else:
