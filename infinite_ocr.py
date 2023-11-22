@@ -62,7 +62,7 @@ if __name__ == "__main__":
         ready_for_ocr = []
         for path in glob.iglob('./ready-to-ocr/*'):
             if path not in seen_path:
-                    batch.append(ready_for_ocr)
+                    ready_for_ocr.append(path)
             
         
         for batch in batcher(ready_for_ocr, 8):
