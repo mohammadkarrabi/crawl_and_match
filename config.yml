@@ -4,4 +4,4 @@ end: 100
 start_url: "food-beverage"
 sleep_time: 0.01
 num_workers: 8
-if_test: False
+if_test: True

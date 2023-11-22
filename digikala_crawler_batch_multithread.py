@@ -12,7 +12,7 @@ def send2ocr(ocr_url):
     for path in current_image_batch:
         name = path.split('/')[-1]
         with open(f'ready-to-ocr/{name}', 'wb+') as f:
-            f.write(open(path))
+            f.write(open(path, 'rb').read())
     # files = [("files", open(path, "rb")) for path in current_image_batch]
     # response = requests.post(ocr_url, files=files)
     return
