@@ -1,0 +1,3 @@
+easyocr
+fastapi
+uvicorn
