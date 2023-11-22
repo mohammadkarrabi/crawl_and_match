@@ -1,7 +1,7 @@
 ocr_url: "http://127.0.0.1:8484/batch-ocr"
-start: 40
-end: 50
-start_url: "headphone"
+start: 67
+end: 100
+start_url: "men-tee-shirts"
 sleep_time: 0
 num_workers: 16
 if_test: False
