@@ -67,7 +67,7 @@ class DigikalaSpider(scrapy.Spider):
             # 'page': str(page_num),
             # }
             prefix = 'https://api.digikala.com/v1/categories/'
-            postfix = f'/search/?seo_url=&has_selling_stock=1&page={page_num}' 
+            postfix = f'/search/?seo_url=&has_selling_stock=1&sort=1&page={page_num}' 
             START_URL = prefix + config['start_url'] + postfix 
             yield scrapy.Request(START_URL, callback=self.parse, headers=self.headers)
 
