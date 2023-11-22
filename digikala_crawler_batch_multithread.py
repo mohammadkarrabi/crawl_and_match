@@ -38,15 +38,21 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_
         send2ocr(current_image_batch, ocr_url)
 
 
-def get_product_ids(start_url, page_num, headers, cookies):
+def get_product_ids(start_url, page_num, headers, cookies, if_test):
     import requests
 
-    params = {
-        'has_selling_stock': '1',
-        'sort': '7',
-        # 'seo_url': '/category-cell-phone-data-cable/?has_selling_stock=1&sort=7',
-        'page': str(page_num),
-    }
+    if if_test:
+        params = {
+            'sort': '7',
+            'page': str(page_num),
+        }
+    else:
+        params = {
+            'has_selling_stock': '1',
+            'sort': '7',
+            # 'seo_url': '/category-cell-phone-data-cable/?has_selling_stock=1&sort=7',
+            'page': str(page_num),
+        }
     response = requests.get(
         start_url,
         params=params,
@@ -122,8 +128,9 @@ if __name__ == '__main__':
     START_URL = prefix + config['start_url'] + postfix
     ocr_url = config['ocr_url']
     num_workers = config['num_workers']
+    if_test = config['if_test']
     for page_num in range(start, end):
         print(page_num)
-        product_ids = get_product_ids(START_URL, page_num, headers, cookies)
+        product_ids = get_product_ids(START_URL, page_num, headers, cookies, if_test)
         _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url, num_workers)
         
