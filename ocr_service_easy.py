@@ -82,9 +82,10 @@ async def batch_ocr(files: List[UploadFile] = File(...)):
 
 global ocr_model, seen_ids, image2txt
 ocr_model = easyocr.Reader(['fa','en']) # this needs to run only once to load the model into memory
-seen_ids = set(open('seen-ids.txt').read().splitlines())
+seen_ids = set(open('seen-ids.txt', 'r+').read().splitlines())
+    
 image2txt = {}
-for line in open('image2txt.jsonl'):
+for line in open('image2txt.jsonl', 'r+'):
     item = json.loads(line)
     image2txt[item['image']] = item['text']
 
