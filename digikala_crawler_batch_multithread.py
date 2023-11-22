@@ -6,9 +6,9 @@ import requests
 import json
 
 current_image_batch = []
-def send2ocr(image_path, ocr_url):
+def send2ocr(image_paths, ocr_url):
     # Create a list of multipart form-data files
-    files = [("files", open(path, "rb")) for path in [image_path]]
+    files = [("files", open(path, "rb")) for path in image_paths]
     response = requests.post(ocr_url, files=files)
     return
 
@@ -35,9 +35,9 @@ def _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_
         urls = [url['url'][0].split('?')[0] for url in images_url if match_func(url)]
         with ThreadPoolExecutor(max_workers=num_workers) as executor:
             executor.map(lambda link: download_single_image(link, id), urls)
-        send2ocr(current_image_batch)
+        send2ocr(current_image_batch, ocr_url)
 
-        
+
 def get_product_ids(start_url, page_num, headers, cookies):
     import requests
 
@@ -121,8 +121,9 @@ if __name__ == '__main__':
     postfix = '/search/?seo_url=&page=1' 
     START_URL = prefix + config['start_url'] + postfix
     ocr_url = config['ocr_url']
+    num_workers = config['num_workers']
     for page_num in range(start, end):
         print(page_num)
         product_ids = get_product_ids(START_URL, page_num, headers, cookies)
-        _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url)
+        _prodouct2images(product_ids, headers, cookies, match_func, sleep_time, ocr_url, num_workers)
         
