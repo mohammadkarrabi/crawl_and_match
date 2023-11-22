@@ -1,3 +1,4 @@
 easyocr
 fastapi
 uvicorn
+tqdm
