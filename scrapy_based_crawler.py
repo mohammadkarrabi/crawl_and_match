@@ -5,10 +5,11 @@ from tqdm import tqdm
 import yaml
 
 def get_outliers(lst):
+    
     groups = {}
     # Group strings by first three characters
     for string in lst:
-        group_key = string[:3]
+        group_key = string.split('_')[1][:3]
         if group_key not in groups:
             groups[group_key] = [string]
         else:
@@ -53,7 +54,7 @@ class DigikalaSpider(scrapy.Spider):
         os.makedirs('./products-info', exist_ok=True)
         os.makedirs('./best-images', exist_ok=True)
         start, end = config['start'], config['end']
-  
+
         for page_num in tqdm(range(start, end)):
             # params = {
             # 'has_selling_stock': '1',
