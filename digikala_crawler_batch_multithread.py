@@ -9,8 +9,12 @@ from tqdm import tqdm
 current_image_batch = []
 def send2ocr(ocr_url):
     # Create a list of multipart form-data files
-    files = [("files", open(path, "rb")) for path in current_image_batch]
-    response = requests.post(ocr_url, files=files)
+    for path in current_image_batch:
+        name = path.split('/')[-1]
+        with open(f'ready-to-ocr/{name}', 'wb+') as f:
+            f.write(open(path))
+    # files = [("files", open(path, "rb")) for path in current_image_batch]
+    # response = requests.post(ocr_url, files=files)
     return
 
 
@@ -122,6 +126,7 @@ if __name__ == '__main__':
     match_func = lambda url: True
     os.makedirs('./digi_image_crawled', exist_ok=True)
     os.makedirs('./products-info', exist_ok=True)
+    os.makedirs('./ready-to-ocr', exist_ok=True)
     start, end = config['start'], config['end']
     sleep_time = config['sleep_time']
     prefix = 'https://api.digikala.com/v1/categories/'
